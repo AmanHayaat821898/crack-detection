@@ -10,6 +10,10 @@ This project is a **full‑stack AI‑powered crack detection system**, built us
 
 ## 📸 Sample Output
 
+![Crack Detection Result](Backend/Backend/results/1.jpg)
+
+![Crack Detection Result](Backend/Backend/results/2.jpg)
+
 ![Crack Detection Result](Backend/Backend/inference_result.png)
 
 ## 🚀 Getting Started
