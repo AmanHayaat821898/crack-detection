@@ -86,31 +86,6 @@ async def detect(
     4.  The output MUST be *only* the JSON object itself. Do not include any introductory text, concluding remarks, explanations, or markdown formatting like ```json ... ```. Just the raw JSON.
     """
 
-    print('uploading to S3 now...')
-    s3_client = get_s3_client()
-    bucket_name = os.getenv("BUCKET_NAME")
-    contents = await file.read()
-    masa = io.BytesIO(contents)
-
-    file_ext = file.filename.split('.')[-1]
-    unique_filename = f"{uuid.uuid4()}.{file_ext}"
-
-    if not s3_client:
-        print("S3 client configuration error.")
-        return
-
-    try:
-        s3_client.upload_fileobj(masa, bucket_name, unique_filename)
-        url = f"https://{bucket_name}.s3.{os.getenv('BUCKET_REGION')}.amazonaws.com/{unique_filename}"
-        print(url)
-        print(f"Successfully uploaded to S3 bucket {bucket_name}.")
-    except Exception as e:
-        print("An error occurred while uploading the file to S3:", e)
-
-    # Read and process image
-    
-    image = Image.open(io.BytesIO(contents)).convert("RGB")
-
     # Run your ML model
     results = model.predict(image)
     result_image = results[0].plot()
